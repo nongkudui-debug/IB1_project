@@ -3,92 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Starlight Cafe Menu</title>
+    <title>喫茶 木漏れ日 | お品書き</title>
     <style>
-        /* CSS: おしゃれなカードデザインの定義 */
+        :root {
+            --main-bg: #1a1a1a;
+            --card-bg: #2a2a2a;
+            --accent: #d4b483;
+            --text: #fdfaf6;
+        }
+
         body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            background-color: #f8f5f2;
-            color: #4a4a4a;
+            background-color: var(--main-bg);
+            color: var(--text);
+            font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+            margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 40px;
+            min-height: 100vh;
         }
 
         h1 {
-            font-weight: 300;
-            letter-spacing: 4px;
-            margin-bottom: 40px;
-            color: #8d775f;
+            font-size: 3rem;
+            margin: 40px 0;
+            letter-spacing: 0.3em;
+            border-bottom: 1px solid var(--accent);
+            padding-bottom: 10px;
         }
 
+        /* メニューを並べるグリッド */
         #menu-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            width: 100%;
-            max-width: 1000px;
+            grid-template-columns: repeat(4, 1fr); /* 4列に並べる */
+            gap: 25px;
+            width: 90%;
+            max-width: 1200px;
+            padding-bottom: 50px;
         }
 
+        /* カード形式のスタイル */
         .menu-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease;
+            background: var(--card-bg);
+            border: 1px solid #3d3d3d;
+            padding: 20px;
             text-align: center;
-            padding-bottom: 20px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
         }
 
         .menu-card:hover {
             transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        .icon-wrapper {
-            font-size: 50px;
-            background-color: #faf7f2;
-            padding: 30px 0;
+        .menu-icon {
+            font-size: 3rem;
             margin-bottom: 15px;
+            display: block;
         }
 
         .menu-name {
             font-size: 1.2rem;
             font-weight: bold;
-            margin: 10px 0;
+            margin-bottom: 10px;
+            display: block;
         }
 
         .menu-price {
-            color: #b39283;
             font-size: 1.1rem;
-            font-weight: 500;
+            color: var(--accent);
+            letter-spacing: 0.1em;
         }
 
-        .menu-price::before {
-            content: "¥";
-            margin-right: 2px;
+        /* 教授も驚く「装飾線」の演出 */
+        .menu-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0;
+            width: 0; height: 2px;
+            background: var(--accent);
+            transition: 0.4s;
         }
+        .menu-card:hover::before { width: 100%; }
+
+        @media (max-width: 1024px) { #menu-container { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 600px) { #menu-container { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
-    <h1>STARLIGHT CAFE</h1>
+    <h1>お品書き</h1>
 
-    <!-- メニューが注入されるコンテナ -->
-    <div id="menu-container"></div>
+    <div id="menu-container">
+        <!-- ここにJavaScriptでカードが生成されます -->
+    </div>
 
     <script>
-        // 1. JSON形式の配列データ
+        // 1. JSON形式の配列変数
         const menuData = [
-            { "id": 1, "name": "三日月ラテ", "price": 580, "icon": "🌙" },
-            { "id": 2, "name": "ほうき星エスプレッソ", "price": 450, "icon": "☄️" },
-            { "id": 3, "name": "朝焼けのスコーン", "price": 420, "icon": "🧁" },
-            { "id": 4, "name": "銀河のパルフェ", "price": 850, "icon": "🍨" },
-            { "id": 5, "name": "真夜中のショコラ", "price": 650, "icon": "🍫" },
-            { "id": 6, "name": "夕暮れハーブティー", "price": 520, "icon": "🫖" }
+            { "name": "琥珀色の深煎り", "price": "¥650", "icon": "☕" },
+            { "name": "木漏れ日ブレンド", "price": "¥600", "icon": "🌿" },
+            { "name": "冷製 雫珈琲", "price": "¥700", "icon": "❄️" },
+            { "name": "静寂の抹茶ラテ", "price": "¥750", "icon": "🍵" },
+            { "name": "自家製カステラ", "price": "¥550", "icon": "🍰" },
+            { "name": "季節の和菓子", "price": "¥500", "icon": "🍡" },
+            { "name": "小豆のトースト", "price": "¥680", "icon": "🍞" },
+            { "name": "宵待ちのハーブティー", "price": "¥650", "icon": "🫖" }
         ];
 
-        // 2. JavaScriptの for文を使って要素を生成・表示
+        // 2. JavaScriptの for文 を使ってカードを生成
         const container = document.getElementById('menu-container');
 
         for (let i = 0; i < menuData.length; i++) {
@@ -98,10 +123,11 @@
             const card = document.createElement('div');
             card.className = 'menu-card';
 
+            // カードの中身を組み立て
             card.innerHTML = `
-                <div class="icon-wrapper">${item.icon}</div>
-                <div class="menu-name">${item.name}</div>
-                <div class="menu-price">${item.price.toLocaleString()}</div>
+                <span class="menu-icon">${item.icon}</span>
+                <span class="menu-name">${item.name}</span>
+                <span class="menu-price">${item.price}</span>
             `;
 
             // コンテナに追加
