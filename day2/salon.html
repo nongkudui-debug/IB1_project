@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>思索の庭 | 喫茶 木漏れ日</title>
+    <style>
+        :root { --bg: #1a1a1a; --accent: #d4b483; --text: #fdfaf6; }
+        body { background: var(--bg); color: var(--text); font-family: serif; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; transition: 2s; margin: 0; }
+        .back-home { position: fixed; top: 20px; left: 20px; text-decoration: none; color: var(--accent); border: 1px solid var(--accent); padding: 8px 15px; }
+        .btns { display: flex; gap: 20px; margin: 30px 0; }
+        button { background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 15px 30px; cursor: pointer; transition: 0.4s; }
+        button:hover { background: var(--accent); color: var(--bg); }
+        #out { max-width: 600px; text-align: center; font-size: 1.2rem; line-height: 2; }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-home">← 戻る</a>
+    <h2>今の気分をお聞かせください</h2>
+    <div class="btns">
+        <button onclick="change('rest', '#1a1c1e', '深い静寂の中で、カフェインレスの雫珈琲を。')">休息</button>
+        <button onclick="change('focus', '#1e1b18', '凛とした空気の中で、思考を研ぎ澄ませる一杯を。')">集中</button>
+    </div>
+    <p id="out"></p>
+    <script>
+        function change(m, c, t) {
+            document.body.style.background = c;
+            const o = document.getElementById('out');
+            o.innerText = "";
+            let i = 0;
+            function type() { if(i < t.length) { o.innerText += t.charAt(i); i++; setTimeout(type, 50); } }
+            type();
+        }
+    </script>
+</body>
+</html>

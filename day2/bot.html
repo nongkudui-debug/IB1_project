@@ -2,181 +2,42 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>木漏れ日 AI コンシェルジュ</title>
+    <title>対話帳 | 喫茶 木漏れ日</title>
     <style>
-        :root {
-            --bg: #1a1a1a;
-            --accent: #d4b483;
-            --chat-user: #3d3d3d;
-            --chat-ai: #2a2a2a;
-            --text: #fdfaf6;
-        }
-
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            font-family: "Hiragino Mincho ProN", serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        /* 1画面で完結するコンパクトなチャット窓 */
-        .chat-container {
-            width: 400px;
-            height: 600px;
-            background: #222;
-            border: 1px solid var(--accent);
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-        }
-
-        .chat-header {
-            padding: 20px;
-            text-align: center;
-            border-bottom: 1px solid #333;
-            font-size: 1.2rem;
-            letter-spacing: 0.2em;
-            color: var(--accent);
-        }
-
-        /* ログ表示エリア */
-        #chat-log {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        /* 吹き出しのスタイル */
-        .msg {
-            max-width: 80%;
-            padding: 12px 16px;
-            border-radius: 5px;
-            font-size: 0.95rem;
-            line-height: 1.5;
-            animation: fadeIn 0.4s ease forwards;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .user-msg {
-            align-self: flex-end;
-            background: var(--chat-user);
-            color: white;
-        }
-
-        .ai-msg {
-            align-self: flex-start;
-            background: var(--chat-ai);
-            border-left: 3px solid var(--accent);
-        }
-
-        /* 入力エリア */
-        .input-area {
-            display: flex;
-            padding: 20px;
-            background: #111;
-            gap: 10px;
-        }
-
-        input[type="text"] {
-            flex: 1;
-            background: #333;
-            border: none;
-            padding: 12px;
-            color: white;
-            outline: none;
-        }
-
-        button {
-            background: var(--accent);
-            color: var(--bg);
-            border: none;
-            padding: 0 20px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        button:hover {
-            filter: brightness(1.2);
-        }
+        :root { --bg: #1a1a1a; --accent: #d4b483; --text: #fdfaf6; }
+        body { background: var(--bg); color: var(--text); font-family: serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .back-home { position: fixed; top: 20px; left: 20px; text-decoration: none; color: var(--accent); border: 1px solid var(--accent); padding: 8px 15px; }
+        .chat-box { width: 400px; height: 500px; border: 1px solid var(--accent); display: flex; flex-direction: column; background: #222; }
+        #log { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+        .msg { padding: 10px; border-radius: 5px; max-width: 80%; }
+        .ai { background: #2a2a2a; align-self: flex-start; border-left: 2px solid var(--accent); }
+        .user { background: #3d3d3d; align-self: flex-end; }
+        .input-area { display: flex; padding: 10px; background: #111; }
+        input { flex: 1; background: #333; border: none; color: white; padding: 10px; }
+        button { background: var(--accent); border: none; padding: 10px 20px; cursor: pointer; }
     </style>
 </head>
 <body>
-
-<div class="chat-container">
-    <div class="chat-header">KOMOREBI AI</div>
-    <div id="chat-log">
-        <div class="msg ai-msg">いらっしゃいませ。何かお手伝いしましょうか？（例：珈琲、予約、場所）</div>
+    <a href="index.html" class="back-home">← 戻る</a>
+    <div class="chat-box">
+        <div id="log"><div class="msg ai">御用を承ります。（例：珈琲、おすすめ）</div></div>
+        <div class="input-area">
+            <input type="text" id="in" placeholder="言葉を入力...">
+            <button onclick="send()">送信</button>
+        </div>
     </div>
-    <div class="input-area">
-        <input type="text" id="user-input" placeholder="メッセージを入力...">
-        <button onclick="sendMessage()">送信</button>
-    </div>
-</div>
-
-<script>
-    function sendMessage() {
-        const inputField = document.getElementById('user-input');
-        const chatLog = document.getElementById('chat-log');
-        const text = inputField.value.trim();
-
-        if (!text) return;
-
-        // 1. ユーザーのメッセージを表示
-        addMessage(text, 'user-msg');
-        inputField.value = '';
-
-        // 2. AIの返信をシミュレート（少し遅れて表示）
-        setTimeout(() => {
-            const reply = getAIReply(text);
-            addMessage(reply, 'ai-msg');
-        }, 600);
-    }
-
-    // キーワード判定ロジック
-    function getAIReply(input) {
-        // AIが判断しやすいように、入力をチェック
-        if (input.includes('珈琲') || input.includes('コーヒー')) {
-            return "当店の珈琲は、厳選した豆を丁寧に深煎りしております。本日のブレンドはいかがですか？";
-        } else if (input.includes('予約') || input.includes('席')) {
-            return "ご予約ですね。窓際の木漏れ日が届くお席をご用意できます。";
-        } else if (input.includes('場所') || input.includes('どこ')) {
-            return "路地裏を抜けた、大きな楠の木が目印です。";
-        } else if (input.includes('おすすめ')) {
-            return "自家製のカステラと、深煎り珈琲のセットが一番人気でございます。";
-        } else {
-            return "左様でございますか。ゆっくりとした時間をお過ごしください。";
+    <script>
+        function send() {
+            const i = document.getElementById('in');
+            const l = document.getElementById('log');
+            if(!i.value) return;
+            l.innerHTML += `<div class="msg user">${i.value}</div>`;
+            let r = "左様でございますか。";
+            if(i.value.includes("珈琲")) r = "当店の珈琲は、心を込めて淹れております。";
+            if(i.value.includes("おすすめ")) r = "自家製カステラが本日のおすすめです。";
+            setTimeout(() => { l.innerHTML += `<div class="msg ai">${r}</div>`; l.scrollTop = l.scrollHeight; }, 600);
+            i.value = "";
         }
-    }
-
-    function addMessage(text, className) {
-        const chatLog = document.getElementById('chat-log');
-        const msgDiv = document.createElement('div');
-        msgDiv.className = `msg ${className}`;
-        msgDiv.textContent = text;
-        chatLog.appendChild(msgDiv);
-
-        // 常に最新のメッセージが見えるようにスクロール
-        chatLog.scrollTop = chatLog.scrollHeight;
-    }
-
-    // Enterキーでも送信できるようにする
-    document.getElementById('user-input').addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') sendMessage();
-    });
-</script>
-
+    </script>
 </body>
 </html>

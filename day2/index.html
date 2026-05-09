@@ -5,138 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>喫茶 木漏れ日 | デジタルアーカイブ</title>
     <style>
-        :root {
-            --bg: #121212;
-            --accent: #d4b483;
-            --text: #fdfaf6;
-        }
-
+        :root { --bg: #121212; --accent: #d4b483; --text: #fdfaf6; }
         body {
-            background-color: var(--bg);
-            color: var(--text);
-            font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
+            background-color: var(--bg); color: var(--text);
+            font-family: "Hiragino Mincho ProN", serif; margin: 0;
+            display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden;
         }
-
         .main-frame {
-            border: 1px solid var(--accent);
-            padding: 80px 60px;
-            text-align: center;
-            position: relative;
-            max-width: 800px;
-            width: 90%;
-            background: rgba(18, 18, 18, 0.8);
+            border: 1px solid var(--accent); padding: 80px 60px; text-align: center;
+            position: relative; max-width: 800px; width: 90%; background: rgba(18, 18, 18, 0.8);
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
         }
-
-        /* 縦書きの屋号アクセント */
         .vertical-accent {
-            position: absolute;
-            top: -30px;
-            left: 50px;
-            writing-mode: vertical-rl;
-            background: var(--bg);
-            padding: 15px 5px;
-            letter-spacing: 0.5em;
-            color: var(--accent);
-            font-size: 0.8rem;
-            border: 1px solid var(--accent);
+            position: absolute; top: -30px; left: 50px; writing-mode: vertical-rl;
+            background: var(--bg); padding: 15px 5px; letter-spacing: 0.5em;
+            color: var(--accent); font-size: 0.8rem; border: 1px solid var(--accent);
         }
-
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 60px;
-            letter-spacing: 0.6em;
-            font-weight: 500;
-        }
-
-        .nav-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .nav-item {
-            margin: 35px 0;
-            opacity: 0;
-            animation: fadeInUp 1s forwards;
-        }
-
+        h1 { font-size: 3rem; margin-bottom: 50px; letter-spacing: 0.6em; font-weight: 500; }
+        .nav-list { list-style: none; padding: 0; }
+        .nav-item { margin: 25px 0; opacity: 0; animation: fadeInUp 1s forwards; }
         .nav-link {
-            text-decoration: none;
-            color: var(--text);
-            font-size: 1.2rem;
-            transition: 0.5s;
-            display: inline-block;
-            position: relative;
-            padding: 10px 30px;
-            letter-spacing: 0.2em;
+            text-decoration: none; color: var(--text); font-size: 1.2rem; transition: 0.5s;
+            display: inline-block; position: relative; padding: 10px 30px; letter-spacing: 0.2em;
         }
-
-        /* ホバー時の優雅な下線アニメーション */
         .nav-link::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 1px;
-            background: var(--accent);
-            transition: 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-            transform: translateX(-50%);
+            content: ""; position: absolute; bottom: 0; left: 50%; width: 0; height: 1px;
+            background: var(--accent); transition: 0.5s; transform: translateX(-50%);
         }
-
-        .nav-link:hover {
-            color: var(--accent);
-            letter-spacing: 0.4em;
-            transform: translateY(-2px);
-        }
-
-        .nav-link:hover::after {
-            width: 80%;
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* 背景の木漏れ日演出 */
+        .nav-link:hover { color: var(--accent); letter-spacing: 0.4em; }
+        .nav-link:hover::after { width: 80%; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .sunlight {
-            position: fixed;
-            top: 0; right: 0;
-            width: 100%; height: 100%;
-            background: radial-gradient(circle at 80% 20%, rgba(212, 180, 131, 0.08) 0%, transparent 60%);
-            pointer-events: none;
-            z-index: -1;
+            position: fixed; top: 0; right: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 80% 20%, rgba(212, 180, 131, 0.1) 0%, transparent 60%); z-index: -1;
         }
     </style>
 </head>
 <body>
-
-<div class="sunlight"></div>
-
-<div class="main-frame">
-    <div class="vertical-accent">御品書</div>
-    <h1>喫茶 木漏れ日</h1>
-    
-    <nav>
-        <ul class="nav-list">
-            <li class="nav-item" style="animation-delay: 0.3s;">
-                <a href="aisatu.html" class="nav-link">空間演出</a>
-            </li>
-            <li class="nav-item" style="animation-delay: 0.6s;">
-                <a href="menu.html" class="nav-link">お品書き</a>
-            </li>
-            <li class="nav-item" style="animation-delay: 0.9s;">
-                <a href="bot.html" class="nav-link">対話帳</a>
-            </li>
-        </ul>
-    </nav>
-</div>
-
+    <div class="sunlight"></div>
+    <div class="main-frame">
+        <div class="vertical-accent">御品書</div>
+        <h1>喫茶 木漏れ日</h1>
+        <nav>
+            <ul class="nav-list">
+                <li class="nav-item" style="animation-delay: 0.2s;"><a href="aisatu.html" class="nav-link">一．空間演出</a></li>
+                <li class="nav-item" style="animation-delay: 0.4s;"><a href="menu.html" class="nav-link">二．お品書き</a></li>
+                <li class="nav-item" style="animation-delay: 0.6s;"><a href="bot.html" class="nav-link">三．対話帳</a></li>
+                <li class="nav-item" style="animation-delay: 0.8s;"><a href="salon.html" class="nav-link">四．思索の庭</a></li>
+            </ul>
+        </nav>
+    </div>
 </body>
 </html>

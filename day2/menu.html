@@ -2,137 +2,32 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>喫茶 木漏れ日 | お品書き</title>
+    <title>お品書き | 喫茶 木漏れ日</title>
     <style>
-        :root {
-            --main-bg: #1a1a1a;
-            --card-bg: #2a2a2a;
-            --accent: #d4b483;
-            --text: #fdfaf6;
-        }
-
-        body {
-            background-color: var(--main-bg);
-            color: var(--text);
-            font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        h1 {
-            font-size: 3rem;
-            margin: 40px 0;
-            letter-spacing: 0.3em;
-            border-bottom: 1px solid var(--accent);
-            padding-bottom: 10px;
-        }
-
-        /* メニューを並べるグリッド */
-        #menu-container {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr); /* 4列に並べる */
-            gap: 25px;
-            width: 90%;
-            max-width: 1200px;
-            padding-bottom: 50px;
-        }
-
-        /* カード形式のスタイル */
-        .menu-card {
-            background: var(--card-bg);
-            border: 1px solid #3d3d3d;
-            padding: 20px;
-            text-align: center;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .menu-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .menu-icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            display: block;
-        }
-
-        .menu-name {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        .menu-price {
-            font-size: 1.1rem;
-            color: var(--accent);
-            letter-spacing: 0.1em;
-        }
-
-        /* 教授も驚く「装飾線」の演出 */
-        .menu-card::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0;
-            width: 0; height: 2px;
-            background: var(--accent);
-            transition: 0.4s;
-        }
-        .menu-card:hover::before { width: 100%; }
-
-        @media (max-width: 1024px) { #menu-container { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 600px) { #menu-container { grid-template-columns: 1fr; } }
+        :root { --bg: #1a1a1a; --accent: #d4b483; --text: #fdfaf6; }
+        body { background: var(--bg); color: var(--text); font-family: serif; text-align: center; padding: 60px 20px; }
+        .back-home { position: fixed; top: 20px; left: 20px; text-decoration: none; color: var(--accent); border: 1px solid var(--accent); padding: 8px 15px; }
+        #menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; max-width: 1000px; margin: 40px auto; }
+        .card { background: #2a2a2a; padding: 20px; border: 1px solid #333; transition: 0.4s; }
+        .card:hover { border-color: var(--accent); transform: translateY(-5s); }
+        .price { color: var(--accent); display: block; margin-top: 10px; }
     </style>
 </head>
 <body>
-
+    <a href="index.html" class="back-home">← 戻る</a>
     <h1>お品書き</h1>
-
-    <div id="menu-container">
-        <!-- ここにJavaScriptでカードが生成されます -->
-    </div>
-
+    <div id="menu-grid"></div>
     <script>
-        // 1. JSON形式の配列変数
-        const menuData = [
-            { "name": "琥珀色の深煎り", "price": "¥650", "icon": "☕" },
-            { "name": "木漏れ日ブレンド", "price": "¥600", "icon": "🌿" },
-            { "name": "冷製 雫珈琲", "price": "¥700", "icon": "❄️" },
-            { "name": "静寂の抹茶ラテ", "price": "¥750", "icon": "🍵" },
-            { "name": "自家製カステラ", "price": "¥550", "icon": "🍰" },
-            { "name": "季節の和菓子", "price": "¥500", "icon": "🍡" },
-            { "name": "小豆のトースト", "price": "¥680", "icon": "🍞" },
-            { "name": "宵待ちのハーブティー", "price": "¥650", "icon": "🫖" }
+        const data = [
+            {n:"琥珀色の深煎り", p:"¥650", i:"☕"}, {n:"木漏れ日ブレンド", p:"¥600", i:"🌿"},
+            {n:"冷製 雫珈琲", p:"¥700", i:"❄️"}, {n:"静寂の抹茶ラテ", p:"¥750", i:"🍵"},
+            {n:"自家製カステラ", p:"¥550", i:"🍰"}, {n:"季節の和菓子", p:"¥500", i:"🍡"},
+            {n:"小豆のトースト", p:"¥680", i:"🍞"}, {n:"宵待ちの茶", p:"¥650", i:"🫖"}
         ];
-
-        // 2. JavaScriptの for文 を使ってカードを生成
-        const container = document.getElementById('menu-container');
-
-        for (let i = 0; i < menuData.length; i++) {
-            const item = menuData[i];
-
-            // HTML要素の作成
-            const card = document.createElement('div');
-            card.className = 'menu-card';
-
-            // カードの中身を組み立て
-            card.innerHTML = `
-                <span class="menu-icon">${item.icon}</span>
-                <span class="menu-name">${item.name}</span>
-                <span class="menu-price">${item.price}</span>
-            `;
-
-            // コンテナに追加
-            container.appendChild(card);
-        }
+        const grid = document.getElementById('menu-grid');
+        data.forEach(item => {
+            grid.innerHTML += `<div class="card"><span>${item.i}</span><br><strong>${item.n}</strong><span class="price">${item.p}</span></div>`;
+        });
     </script>
 </body>
 </html>
