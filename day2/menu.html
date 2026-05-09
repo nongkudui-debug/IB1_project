@@ -2,32 +2,156 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>お品書き | 喫茶 木漏れ日</title>
+    <title>御品書 | 喫茶 木漏れ日</title>
     <style>
-        :root { --bg: #1a1a1a; --accent: #d4b483; --text: #fdfaf6; }
-        body { background: var(--bg); color: var(--text); font-family: serif; text-align: center; padding: 60px 20px; }
-        .back-home { position: fixed; top: 20px; left: 20px; text-decoration: none; color: var(--accent); border: 1px solid var(--accent); padding: 8px 15px; }
-        #menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; max-width: 1000px; margin: 40px auto; }
-        .card { background: #2a2a2a; padding: 20px; border: 1px solid #333; transition: 0.4s; }
-        .card:hover { border-color: var(--accent); transform: translateY(-5s); }
-        .price { color: var(--accent); display: block; margin-top: 10px; }
+        :root {
+            --bg: #0d0d0d;
+            --accent: #b89c6d;
+            --text: #fdfaf6;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* 薄い和紙のテクスチャ */
+            background-image: url('https://www.transparenttextures.com/patterns/pinstriped-suit.png'); 
+            overflow: hidden;
+        }
+
+        .back-home {
+            position: fixed; top: 40px; left: 40px;
+            text-decoration: none; color: var(--accent);
+            font-size: 0.85rem; letter-spacing: 0.2em;
+            border-bottom: 1px solid var(--accent);
+            padding-bottom: 5px; transition: 0.4s;
+        }
+        .back-home:hover { opacity: 0.6; }
+
+        /* お品書きの台紙 */
+        .menu-board {
+            width: 85%;
+            max-width: 1000px;
+            height: 60vh;
+            display: flex;
+            flex-direction: row-reverse; /* 右から左へ */
+            justify-content: center;
+            gap: 120px;
+        }
+
+        /* カテゴリーごとの縦書き設定 */
+        .menu-group {
+            writing-mode: vertical-rl;
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+        }
+
+        .group-title {
+            font-size: 1.8rem;
+            color: var(--accent);
+            border-right: 1px solid var(--accent);
+            padding-left: 20px;
+            margin-left: 30px;
+            letter-spacing: 0.8em;
+            height: fit-content;
+        }
+
+        .item {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            opacity: 0;
+            animation: fadeInRight 1.5s ease-out forwards;
+        }
+
+        .item-name {
+            font-size: 1.5rem;
+            letter-spacing: 0.4em;
+            line-height: 1.5;
+        }
+
+        .item-price {
+            font-size: 0.9rem;
+            color: var(--accent);
+            margin-top: 15px;
+            letter-spacing: 0.2em;
+        }
+
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* 空間の装飾 */
+        .decoration-text {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            writing-mode: vertical-rl;
+            font-size: 0.7rem;
+            color: rgba(253, 250, 246, 0.2);
+            letter-spacing: 0.5em;
+        }
     </style>
 </head>
 <body>
-    <a href="index.html" class="back-home">← 戻る</a>
-    <h1>お品書き</h1>
-    <div id="menu-grid"></div>
-    <script>
-        const data = [
-            {n:"琥珀色の深煎り", p:"¥650", i:"☕"}, {n:"木漏れ日ブレンド", p:"¥600", i:"🌿"},
-            {n:"冷製 雫珈琲", p:"¥700", i:"❄️"}, {n:"静寂の抹茶ラテ", p:"¥750", i:"🍵"},
-            {n:"自家製カステラ", p:"¥550", i:"🍰"}, {n:"季節の和菓子", p:"¥500", i:"🍡"},
-            {n:"小豆のトースト", p:"¥680", i:"🍞"}, {n:"宵待ちの茶", p:"¥650", i:"🫖"}
-        ];
-        const grid = document.getElementById('menu-grid');
-        data.forEach(item => {
-            grid.innerHTML += `<div class="card"><span>${item.i}</span><br><strong>${item.n}</strong><span class="price">${item.p}</span></div>`;
-        });
-    </script>
+
+    <a href="index.html" class="back-home">戻る</a>
+
+    <div class="menu-board">
+        
+        <!-- 珈琲 -->
+        <div class="menu-group">
+            <h2 class="group-title">珈琲</h2>
+            <div class="item" style="animation-delay: 0.3s;">
+                <span class="item-name">琥珀の極深煎り</span>
+                <span class="item-price">八五〇</span>
+            </div>
+            <div class="item" style="animation-delay: 0.5s;">
+                <span class="item-name">木漏れ日ブレンド</span>
+                <span class="item-price">七〇〇</span>
+            </div>
+            <div class="item" style="animation-delay: 0.7s;">
+                <span class="item-name">雫の冷珈琲</span>
+                <span class="item-price">九〇〇</span>
+            </div>
+        </div>
+
+        <!-- 茶 -->
+        <div class="menu-group">
+            <h2 class="group-title">茶</h2>
+            <div class="item" style="animation-delay: 0.9s;">
+                <span class="item-name">特選 宇治の静寂</span>
+                <span class="item-price">一二〇〇</span>
+            </div>
+            <div class="item" style="animation-delay: 1.1s;">
+                <span class="item-name">宵待ちハーブティー</span>
+                <span class="item-price">八〇〇</span>
+            </div>
+        </div>
+
+        <!-- 甘味 -->
+        <div class="menu-group">
+            <h2 class="group-title">甘味</h2>
+            <div class="item" style="animation-delay: 1.3s;">
+                <span class="item-name">自家製 密カステラ</span>
+                <span class="item-price">六〇〇</span>
+            </div>
+            <div class="item" style="animation-delay: 1.5s;">
+                <span class="item-name">季節の上生菓子</span>
+                <span class="item-price">七五〇</span>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="decoration-text">すべての品に、静寂を添えて。</div>
+
 </body>
 </html>

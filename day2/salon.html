@@ -4,31 +4,178 @@
     <meta charset="UTF-8">
     <title>思索の庭 | 喫茶 木漏れ日</title>
     <style>
-        :root { --bg: #1a1a1a; --accent: #d4b483; --text: #fdfaf6; }
-        body { background: var(--bg); color: var(--text); font-family: serif; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; transition: 2s; margin: 0; }
-        .back-home { position: fixed; top: 20px; left: 20px; text-decoration: none; color: var(--accent); border: 1px solid var(--accent); padding: 8px 15px; }
-        .btns { display: flex; gap: 20px; margin: 30px 0; }
-        button { background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 15px 30px; cursor: pointer; transition: 0.4s; }
-        button:hover { background: var(--accent); color: var(--bg); }
-        #out { max-width: 600px; text-align: center; font-size: 1.2rem; line-height: 2; }
+        :root {
+            --bg: #0f0f0f;
+            --accent: #b89c6d;
+            --text: #fdfaf6;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: background 3s ease, color 3s ease;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .back-home {
+            position: fixed; top: 40px; left: 40px;
+            text-decoration: none; color: var(--accent);
+            font-size: 0.8rem; letter-spacing: 0.2em;
+            border-bottom: 1px solid var(--accent);
+            padding-bottom: 5px; transition: 0.4s;
+            z-index: 100;
+        }
+
+        /* 庭の選択肢：浮かび上がるボタン */
+        .garden-selector {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 50px;
+            z-index: 10;
+        }
+
+        button {
+            background: transparent;
+            border: 1px solid rgba(184, 156, 109, 0.4);
+            color: var(--accent);
+            padding: 15px 40px;
+            font-family: inherit;
+            font-size: 1rem;
+            letter-spacing: 0.3em;
+            cursor: pointer;
+            transition: 0.6s;
+            backdrop-filter: blur(5px);
+        }
+
+        button:hover {
+            border-color: var(--accent);
+            background: rgba(184, 156, 109, 0.1);
+            transform: translateY(-5px);
+        }
+
+        /* 中央の思索テキスト */
+        #display-area {
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            max-width: 800px;
+            padding: 0 40px;
+        }
+
+        .thought-line {
+            font-size: 1.6rem;
+            line-height: 2.5;
+            letter-spacing: 0.4em;
+            opacity: 0;
+            filter: blur(10px);
+            transition: 2s ease;
+        }
+
+        .active-text {
+            opacity: 1;
+            filter: blur(0);
+        }
+
+        /* 装飾：環境に合わせて動く光の輪 */
+        .aura {
+            position: fixed;
+            width: 800px;
+            height: 800px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(184, 156, 109, 0.05) 0%, transparent 70%);
+            z-index: -1;
+            transition: 4s ease;
+            filter: blur(60px);
+        }
+
     </style>
 </head>
 <body>
-    <a href="index.html" class="back-home">← 戻る</a>
-    <h2>今の気分をお聞かせください</h2>
-    <div class="btns">
-        <button onclick="change('rest', '#1a1c1e', '深い静寂の中で、カフェインレスの雫珈琲を。')">休息</button>
-        <button onclick="change('focus', '#1e1b18', '凛とした空気の中で、思考を研ぎ澄ませる一杯を。')">集中</button>
+
+    <a href="index.html" class="back-home">戻る</a>
+    <div class="aura" id="aura"></div>
+
+    <div class="garden-selector">
+        <button onclick="meditate('rest')">静寂 (休息)</button>
+        <button onclick="meditate('focus')">凜冽 (集中)</button>
+        <button onclick="meditate('inspire')">連想 (発想)</button>
+        <button onclick="meditate('nostalgia')">追憶 (追憶)</button>
     </div>
-    <p id="out"></p>
+
+    <div id="display-area">
+        <div id="text-output" class="thought-line">庭の入口で、一息。</div>
+    </div>
+
     <script>
-        function change(m, c, t) {
-            document.body.style.background = c;
-            const o = document.getElementById('out');
-            o.innerText = "";
-            let i = 0;
-            function type() { if(i < t.length) { o.innerText += t.charAt(i); i++; setTimeout(type, 50); } }
-            type();
+        const modes = {
+            rest: {
+                bg: "#0d0f12",
+                aura: "rgba(100, 149, 237, 0.08)",
+                texts: [
+                    "呼吸を、深く。琥珀色の闇に身を任せる。",
+                    "思考のさざ波が、静かに引いていく。",
+                    "ここでは、何もしないことが最上の美徳。"
+                ]
+            },
+            focus: {
+                bg: "#161412",
+                aura: "rgba(212, 180, 131, 0.15)",
+                texts: [
+                    "意識の輪郭を、鋭く研ぎ澄ます。",
+                    "一杯の珈琲が、知性に火を灯す。",
+                    "雑音は消え、ただ一筋の光を追う。"
+                ]
+            },
+            inspire: {
+                bg: "#1a161d",
+                aura: "rgba(155, 89, 182, 0.1)",
+                texts: [
+                    "常識の枠を外し、色のない夢を見る。",
+                    "偶然の重なりが、新しい意味を生む。",
+                    "未だ見ぬ景色が、言葉の端々に宿る。"
+                ]
+            },
+            nostalgia: {
+                bg: "#1c1915",
+                aura: "rgba(230, 126, 34, 0.1)",
+                texts: [
+                    "古い記憶の断片が、香りと共に蘇る。",
+                    "あの日の夕暮れ、木漏れ日は優しかった。",
+                    "時間は円を描き、またここへ戻ってくる。"
+                ]
+            }
+        };
+
+        function meditate(modeKey) {
+            const mode = modes[modeKey];
+            const aura = document.getElementById('aura');
+            const output = document.getElementById('text-output');
+
+            // 背景とオーラの変化
+            document.body.style.background = mode.bg;
+            aura.style.background = `radial-gradient(circle, ${mode.aura} 0%, transparent 70%)`;
+            aura.style.transform = `scale(${1 + Math.random()})`;
+
+            // テキストの切り替え演出
+            output.classList.remove('active-text');
+            
+            setTimeout(() => {
+                const randomText = mode.texts[Math.floor(Math.random() * mode.texts.length)];
+                output.innerText = randomText;
+                output.classList.add('active-text');
+            }, 1000);
         }
     </script>
 </body>
