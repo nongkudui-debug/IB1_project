@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>シンプルチャットボット</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; line-height: 1.6; }
+        #chat-container { max-width: 400px; border: 1px solid #ccc; padding: 20px; border-radius: 10px; }
+        #response-area { margin-top: 20px; padding: 10px; background: #f0f0f0; border-radius: 5px; min-height: 1.5em; }
+        input { width: 70%; padding: 8px; }
+        button { padding: 8px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<div id="chat-container">
+    <h3>カスタマーサポート</h3>
+    <input type="text" id="user-input" placeholder="質問を入力してください...">
+    <button onclick="sendQuestion()">送信</button>
+
+    <div id="response-area">ここに返信が表示されます</div>
+</div>
+
+<script>
+    function sendQuestion() {
+        // 1. 入力値を取得
+        const inputField = document.getElementById("user-input");
+        const display = document.getElementById("response-area");
+        const text = inputField.value;
+
+        // 2. キーワード判定
+        let reply = "";
+
+        if (text.includes("送料")) {
+            reply = "📦 <b>ボット：</b> 全国一律500円です。";
+        } 
+        else if (text.includes("時間")) {
+            reply = "🕒 <b>ボット：</b> 9:00〜18:00です。";
+        } 
+        else {
+            reply = "👨‍💼 <b>ボット：</b> 担当者にお繋ぎします。";
+        }
+
+        // 3. 画面に表示
+        display.innerHTML = reply;
+        
+        // 入力欄を空にする
+        inputField.value = "";
+    }
+</script>
+
+</body>
+</html>

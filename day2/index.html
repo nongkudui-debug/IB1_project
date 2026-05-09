@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome My Site!</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700&display=swap');
+
+        body {
+            background-color: #ffefd5;
+            font-family: 'M PLUS Rounded 1c', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            border: 8px solid #ff69b4;
+            box-shadow: 15px 15px 0px #ffb6c1;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        h1 {
+            color: #ff1493;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 0px #eee;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            background-color: #40e0d0;
+            padding: 15px 20px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            transition: transform 0.2s, background-color 0.2s;
+            border: 4px solid #00ced1;
+            box-shadow: 0 5px 0 #008b8b;
+        }
+
+        .nav-links a:hover {
+            transform: scale(1.1) rotate(-2deg);
+            background-color: #ff6347;
+            border-color: #ff4500;
+            box-shadow: 0 5px 0 #cd5c5c;
+        }
+
+        .nav-links a:active {
+            transform: translateY(5px);
+            box-shadow: none;
+        }
+
+        /* 個別に色を変えてもっとポップに */
+        .link-aisatu { background-color: #ff69b4; border-color: #ff1493; box-shadow: 0 5px 0 #c71585; }
+        .link-menu   { background-color: #ffd700; border-color: #ffa500; box-shadow: 0 5px 0 #cc8400; color: #333; }
+        .link-bot    { background-color: #7fffd4; border-color: #66cdaa; box-shadow: 0 5px 0 #458b74; color: #333; }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>HELLO!</h1>
+        <div class="nav-links">
+            <a href="aisatu.html" class="link-aisatu">ごあいさつ</a>
+            <a href="menu.html" class="link-menu">メニュー</a>
+            <a href="bot.html" class="link-bot">チャットボット</a>
+        </div>
+    </div>
+
+</body>
+</html>

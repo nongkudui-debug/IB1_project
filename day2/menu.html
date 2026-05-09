@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starlight Cafe Menu</title>
+    <style>
+        /* CSS: おしゃれなカードデザインの定義 */
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f8f5f2;
+            color: #4a4a4a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+        }
+
+        h1 {
+            font-weight: 300;
+            letter-spacing: 4px;
+            margin-bottom: 40px;
+            color: #8d775f;
+        }
+
+        #menu-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .menu-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            text-align: center;
+            padding-bottom: 20px;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .icon-wrapper {
+            font-size: 50px;
+            background-color: #faf7f2;
+            padding: 30px 0;
+            margin-bottom: 15px;
+        }
+
+        .menu-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .menu-price {
+            color: #b39283;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .menu-price::before {
+            content: "¥";
+            margin-right: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>STARLIGHT CAFE</h1>
+
+    <!-- メニューが注入されるコンテナ -->
+    <div id="menu-container"></div>
+
+    <script>
+        // 1. JSON形式の配列データ
+        const menuData = [
+            { "id": 1, "name": "三日月ラテ", "price": 580, "icon": "🌙" },
+            { "id": 2, "name": "ほうき星エスプレッソ", "price": 450, "icon": "☄️" },
+            { "id": 3, "name": "朝焼けのスコーン", "price": 420, "icon": "🧁" },
+            { "id": 4, "name": "銀河のパルフェ", "price": 850, "icon": "🍨" },
+            { "id": 5, "name": "真夜中のショコラ", "price": 650, "icon": "🍫" },
+            { "id": 6, "name": "夕暮れハーブティー", "price": 520, "icon": "🫖" }
+        ];
+
+        // 2. JavaScriptの for文を使って要素を生成・表示
+        const container = document.getElementById('menu-container');
+
+        for (let i = 0; i < menuData.length; i++) {
+            const item = menuData[i];
+
+            // HTML要素の作成
+            const card = document.createElement('div');
+            card.className = 'menu-card';
+
+            card.innerHTML = `
+                <div class="icon-wrapper">${item.icon}</div>
+                <div class="menu-name">${item.name}</div>
+                <div class="menu-price">${item.price.toLocaleString()}</div>
+            `;
+
+            // コンテナに追加
+            container.appendChild(card);
+        }
+    </script>
+</body>
+</html>
