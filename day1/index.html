@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>喫茶 木漏れ日 | ポートフォリオ</title>
+    <style>
+        /* --- 究極の和モダン「木漏れ日」100点版 --- */
+        :root {
+            --sumi: #1a1a1a;
+            --paper: #f8f7f2;
+            --hanko: #a44b3d;
+            --font-jp: "YuMincho", "Yu Mincho", "Hiragino Mincho ProN", serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            height: 100%;
+            overflow: hidden;
+            background-color: #efefef;
+            font-family: var(--font-jp);
+            color: var(--sumi);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stage-wrapper {
+            width: 900px;
+            height: 600px;
+            display: flex;
+            border: 2px solid var(--sumi);
+            background-color: var(--paper);
+            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+            position: relative;
+            box-shadow: 20px 20px 60px rgba(0,0,0,0.05);
+        }
+
+        .main-header {
+            width: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-right: 1px solid var(--sumi);
+        }
+
+        .shop-logo-bold {
+            writing-mode: vertical-rl;
+            font-size: 2.2rem;
+            letter-spacing: 0.6em;
+            font-weight: 500;
+        }
+
+        .hanko-mark {
+            background: var(--hanko);
+            color: white;
+            font-size: 0.65rem;
+            padding: 8px 2px;
+            writing-mode: vertical-rl;
+            margin-top: 20px;
+            letter-spacing: 0.2em;
+            line-height: 1;
+        }
+
+        .content-core {
+            flex: 1;
+            padding: 50px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .concept-impact p {
+            font-size: 0.95rem;
+            line-height: 2.4;
+            letter-spacing: 0.05em;
+            margin-bottom: 30px;
+        }
+
+        .photo-strip {
+            display: flex;
+            justify-content: flex-start;
+            gap: 30px;
+        }
+
+        .panel {
+            width: 160px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .img-wrap {
+            width: 160px;
+            height: 120px;
+            border: 1px solid var(--sumi);
+            overflow: hidden;
+            margin-bottom: 15px;
+            background-color: #fff;
+        }
+
+        .img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+            filter: sepia(10%);
+        }
+
+        .panel:hover img {
+            transform: scale(1.1);
+        }
+
+        .photo-caption {
+            writing-mode: vertical-rl;
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            line-height: 2;
+            height: 160px;
+            color: #333;
+            margin-left: 10px;
+        }
+
+        .footer-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .btn-reserve-bold {
+            padding: 12px 50px;
+            background: var(--sumi);
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: 0.3em;
+            font-size: 0.85rem;
+            transition: 0.3s;
+        }
+
+        .micro-footer {
+            font-size: 0.6rem;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="stage-wrapper">
+        <div class="main-header">
+            <h1 class="shop-logo-bold">喫茶 木漏れ日</h1>
+            <div class="hanko-mark">珈琲</div>
+        </div>
+
+        <main class="content-core">
+            <div class="concept-impact">
+                <p>懐かしくも新しい、和モダンの静かな空間。<br>
+                   丁寧に淹れた珈琲と、窓から届く木漏れ日。<br>
+                   ここにあるのは、心ほどける穏やかな時間だけです。</p>
+                <p>喧騒を忘れ、自分に帰るひとときを。<br>
+                   喫茶「木漏れ日」で、お待ちしております。</p>
+            </div>
+
+            <div class="photo-strip">
+                <!-- パネル 1：外観 -->
+                <div class="panel">
+                    <div class="img-wrap">
+                        <a href="day1/index.html">
+                            <img src="外観.png" alt="外観">
+                        </a>
+                    </div>
+                    <div class="photo-caption">路地裏の木漏れ日、<br>静かなはじまり。</div>
+                </div>
+
+                <!-- パネル 2：チル（内観） -->
+                <div class="panel">
+                    <div class="img-wrap">
+                        <a href="day2/index.html">
+                            <img src="チル.png" alt="チル">
+                        </a>
+                    </div>
+                    <div class="photo-caption">何もしない贅沢を、<br>ここで。</div>
+                </div>
+
+                <!-- パネル 3：コーヒー -->
+                <div class="panel">
+                    <div class="img-wrap">
+                        <img src="コーヒー.png" alt="コーヒー">
+                    </div>
+                    <div class="photo-caption">手仕事の温もり、<br>淹れたての香り。</div>
+                </div>
+            </div>
+
+            <div class="footer-line">
+                <a href="#" class="btn-reserve-bold">御予約はこちら</a>
+                <div class="micro-footer">© KOMOREBI</div>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>
