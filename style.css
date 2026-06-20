@@ -1,0 +1,215 @@
+/* ==========================================
+   1. 基本設定
+   ========================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f7f6f3;
+    color: #2c2c2c;
+    font-family: 'Shippori Mincho', serif;
+    line-height: 2;
+    letter-spacing: 0.08em;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* 全体の外枠（黒い大きな枠） */
+.site-container {
+    background-color: #ffffff;
+    border: 2px solid #1a1a1a;
+    width: 100%;
+    max-width: 960px;
+    display: flex;
+    position: relative;
+}
+
+/* ==========================================
+   2. 左側：縦書き店名
+   ========================================== */
+.shop-sidebar {
+    padding: 60px 30px;
+    border-right: 1px solid #1a1a1a;
+    display: flex;
+    justify-content: center;
+}
+
+.shop-name {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: 0.4em;
+    position: relative;
+    white-space: nowrap;
+}
+
+.shop-sub-badge {
+    display: inline-block;
+    background-color: #b84c3c;
+    color: #ffffff;
+    font-size: 0.8rem;
+    padding: 8px 4px;
+    margin-top: 20px;
+    letter-spacing: 0.1em;
+    font-weight: 400;
+}
+
+/* ==========================================
+   3. 右側：メインコンテンツ
+   ========================================== */
+.main-content {
+    flex: 1;
+    padding: 60px 50px 40px 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.intro-section {
+    font-size: 0.95rem;
+    color: #333333;
+    margin-bottom: 50px;
+}
+
+.intro-section p {
+    margin-bottom: 8px;
+}
+
+.intro-section .intro-lead {
+    margin-top: 30px;
+}
+
+/* ==========================================
+   4. 画像グリッド & 縦書き説明
+   ========================================== */
+.gallery-section {
+    margin-bottom: 60px;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    align-items: start;
+}
+
+.gallery-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image-box {
+    border: 1px solid #1a1a1a;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.item-caption {
+    writing-mode: vertical-rl;
+    font-size: 0.85rem;
+    color: #555555;
+    line-height: 1.8;
+    letter-spacing: 0.2em;
+    height: 180px;
+    margin-left: 10px;
+}
+
+/* ==========================================
+   5. ボタン & フッター
+   ========================================== */
+.footer-controls {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.btn-reservation {
+    display: inline-block;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    padding: 12px 35px;
+    font-size: 0.9rem;
+    letter-spacing: 0.15em;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-reservation:hover {
+    background-color: #444444;
+}
+
+.copyright {
+    font-size: 0.65rem;
+    color: #999999;
+    letter-spacing: 0.05em;
+}
+
+/* ==========================================
+   6. スマホ用レイアウト
+   ========================================== */
+@media (max-width: 768px) {
+    .site-container {
+        flex-direction: column;
+    }
+    
+    .shop-sidebar {
+        border-right: none;
+        border-bottom: 1px solid #1a1a1a;
+        padding: 30px;
+    }
+    
+    .shop-name {
+        writing-mode: horizontal-tb;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .shop-sub-badge {
+        margin-top: 0;
+        padding: 4px 8px;
+    }
+
+    .main-content {
+        padding: 30px 20px;
+    }
+
+    .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .item-caption {
+        writing-mode: horizontal-tb;
+        height: auto;
+        margin-left: 0;
+        margin-top: 10px;
+    }
+
+    .footer-controls {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+        margin-top: 40px;
+    }
+    
+    .copyright {
+        align-self: flex-end;
+    }
+}
