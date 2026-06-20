@@ -1,0 +1,34 @@
+function sendMessage() {
+  // 画面の入力欄と、履歴を表示するエリアを取得
+  const input = document.getElementById('chat-input');
+  const history = document.getElementById('chat-history');
+  const text = input.value.trim(); // 入力された文字（前後の空白を削る）
+
+  // もし何も入力されていなければ、ここで処理を終わりにする
+  if (!text) return;
+
+  // 【1】ユーザーが入力した文字を画面に表示する処理（省略）
+  // ... (ここに画面へ追加するコードが入ります) ...
+
+  // 入力欄を空っぽにする
+  input.value = '';
+
+  // 【2】ボットの返事を変える条件分岐 (Logic)
+  setTimeout(() => {
+    // まずは「それ以外」のときの返事を基本のセットとして用意しておく
+    let response = "担当者にお繋ぎします 🙇‍";
+
+    // 「もし〜なら」の条件分岐
+    if (text.includes("送料")) {
+      // 入力された文字に「送料」が含まれている場合
+      response = "全国一律500円です 🚚";
+    } else if (text.includes("時間")) {
+      // 入力された文字に「時間」が含まれている場合
+      response = "9:00〜18:00です ⏰";
+    }
+
+    // 【3】決まった返事（response）を画面に表示する処理（省略）
+    // ... (ここに画面へ追加するコードが入ります) ...
+    
+  }, 600); // 0.6秒後に少し人間らしく遅れて返信する
+}
