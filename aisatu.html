@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ポップなカラーチェンジ</title>
+    <style>
+        /* 全体のレイアウト */
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f0fdf4; /* 爽やかな薄いミントグリーン */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* ポップな四角い箱のスタイル */
+        #box {
+            width: 280px;
+            height: 200px;
+            background-color: #ffed4a; /* 初期カラー：明るいイエロー（変更前もポップに！） */
+            background-color: #ff7675; /* 初期カラー：可愛いコーラルピンク */
+            border: 4px solid #2d3436; /* クッキリした黒い太枠でアメコミ風に */
+            border-radius: 20px; /* 角を丸くしてキャッチーに */
+            box-shadow: 8px 8px 0px #2d3436; /* 飛び出すような3D風の影 */
+            
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+            text-align: center;
+            letter-spacing: 2px;
+            
+            /* 変化を滑らかにするアニメーション効果 */
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            margin-bottom: 40px;
+        }
+
+        /* ポップなボタンのスタイル */
+        #change-btn {
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #2d3436;
+            background-color: #55efc4; /* ミントブルー */
+            border: 3px solid #2d3436;
+            border-radius: 30px;
+            box-shadow: 0px 5px 0px #2d3436;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.1s ease;
+        }
+
+        /* ボタンを押したときの動き */
+        #change-btn:active {
+            transform: translateY(5px);
+            box-shadow: 0px 0px 0px #2d3436;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="box">こんにちは！</div>
+
+    <button id="change-btn">ボタンを押してね！</button>
+
+    <script>
+        // 画面の要素（箱とボタン）を取得する
+        const box = document.getElementById('box');
+        const button = document.getElementById('change-btn');
+
+        // ボタンがクリックされたときの処理
+        button.addEventListener('click', () => {
+            // 箱の背景色を黄色に、文字色をクッキリした黒に変更
+            box.style.backgroundColor = '#ffeaa7'; 
+            box.style.color = '#2d3436';
+            
+            // 箱のテキストを変更
+            box.textContent = 'いらっしゃいませ！';
+            
+            // ちょっとした遊び心：箱を少し大きくする
+            box.style.transform = 'scale(1.05)';
+        });
+    </script>
+
+</body>
+</html>
