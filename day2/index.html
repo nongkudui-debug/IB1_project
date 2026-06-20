@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>喫茶 木漏れ日 - 案内処</title>
+    <style>
+        body {
+            font-family: 'Georgia', 'Times New Roman', 'Hiragino Mincho ProN', 'MS Mincho', serif;
+            background-color: #f7f5f0;
+            color: #2c2520;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background-color: #ffffff;
+            border: 1px solid #c2b69d;
+            padding: 60px 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            display: flex;
+            gap: 40px;
+        }
+        /* 左側：美しい縦書きの看板風タイトル */
+        .brand-area {
+            writing-mode: vertical-rl;
+            text-combine-upright: all;
+            font-size: 28px;
+            letter-spacing: 8px;
+            border-left: 1px double #c2b69d;
+            padding-left: 20px;
+            color: #4a3b32;
+        }
+        .brand-sub {
+            font-size: 13px;
+            letter-spacing: 2px;
+            color: #8c7e6c;
+            margin-left: 10px;
+        }
+        /* 右側：メニューリンク */
+        .nav-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 20px;
+        }
+        .nav-link {
+            display: block;
+            padding: 20px;
+            background-color: #faf9f6;
+            border-left: 3px solid #8a7355;
+            color: #2c2520;
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover {
+            background-color: #f4f1ea;
+            transform: translateX(5px);
+        }
+        .nav-link span {
+            display: block;
+            font-size: 11px;
+            color: #a39684;
+            margin-top: 4px;
+        }
+        @media (max-width: 600px) {
+            .container { flex-direction: column; padding: 40px 20px; }
+            .brand-area { writing-mode: horizontal-tb; border-left: none; border-bottom: 1px double #c2b69d; padding-bottom: 20px; padding-left: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="brand-area">
+            喫茶 木漏れ日
+            <span class="brand-sub">懐かしくも新しい、和モダンの静かな空間</span>
+        </div>
+        <nav class="nav-area">
+            <a href="about.html" class="nav-link">一、庵のこだわり<span>（コンセプトページ）</span></a>
+            <a href="aisatu.html" class="nav-link">二、お出迎えの頁<span>（カラーチェンジ挨拶）</span></a>
+            <a href="menu.html" class="nav-link">三、お品書き<span>（厳選カフェメニュー）</span></a>
+            <a href="bot.html" class="nav-link">四、帳場案内<span>（自動チャットボット）</span></a>
+        </nav>
+    </div>
+</body>
+</html>

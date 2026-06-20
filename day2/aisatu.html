@@ -3,89 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ポップなカラーチェンジ</title>
+    <title>お出迎え - 喫茶 木漏れ日</title>
     <style>
-        /* 全体のレイアウト */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            background-color: #f0fdf4; /* 爽やかな薄いミントグリーン */
+            font-family: 'Georgia', 'Times New Roman', 'Hiragino Mincho ProN', 'MS Mincho', serif;
+            background-color: #f7f5f0;
+            color: #2c2520;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             height: 100vh;
             margin: 0;
         }
 
-        /* ポップな四角い箱のスタイル */
+        .wrapper {
+            max-width: 500px;
+            width: 100%;
+            border: 1px solid #c2b69d;
+            padding: 50px 30px;
+            background-color: #ffffff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        /* 和風の格子や佇まいをイメージしたプレーンな箱 */
         #box {
-            width: 280px;
-            height: 200px;
-            background-color: #ffed4a; /* 初期カラー：明るいイエロー（変更前もポップに！） */
-            background-color: #ff7675; /* 初期カラー：可愛いコーラルピンク */
-            border: 4px solid #2d3436; /* クッキリした黒い太枠でアメコミ風に */
-            border-radius: 20px; /* 角を丸くしてキャッチーに */
-            box-shadow: 8px 8px 0px #2d3436; /* 飛び出すような3D風の影 */
-            
+            width: 100%;
+            height: 150px;
+            background-color: #faf9f6;
+            border: 1px solid #d1c7bd;
             display: flex;
             align-items: center;
             justify-content: center;
-            
-            font-size: 24px;
-            font-weight: bold;
-            color: #ffffff;
-            text-align: center;
-            letter-spacing: 2px;
-            
-            /* 変化を滑らかにするアニメーション効果 */
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            margin-bottom: 40px;
-        }
-
-        /* ポップなボタンのスタイル */
-        #change-btn {
-            padding: 15px 40px;
             font-size: 18px;
-            font-weight: bold;
-            color: #2d3436;
-            background-color: #55efc4; /* ミントブルー */
-            border: 3px solid #2d3436;
-            border-radius: 30px;
-            box-shadow: 0px 5px 0px #2d3436;
-            cursor: pointer;
-            outline: none;
-            transition: all 0.1s ease;
+            letter-spacing: 2px;
+            color: #615249;
+            margin-bottom: 40px;
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        /* ボタンを押したときの動き */
-        #change-btn:active {
-            transform: translateY(5px);
-            box-shadow: 0px 0px 0px #2d3436;
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+        }
+
+        /* 上品な和モダンボタン */
+        #change-btn {
+            padding: 12px 40px;
+            font-family: inherit;
+            font-size: 14px;
+            color: #ffffff;
+            background-color: #4a3b32;
+            border: none;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: background-color 0.3s;
+        }
+
+        #change-btn:hover { 
+            background-color: #615249; 
+        }
+
+        /* 案内処へ戻るリンク */
+        .back-btn {
+            font-size: 13px;
+            color: #8c7e6c;
+            text-decoration: none;
+            border-bottom: 1px dashed #c2b69d;
+            transition: color 0.3s;
+        }
+        .back-btn:hover {
+            color: #4a3b32;
         }
     </style>
 </head>
 <body>
 
-    <div id="box">こんにちは！</div>
-
-    <button id="change-btn">ボタンを押してね！</button>
+    <div class="wrapper">
+        <div id="box">静かに扉を叩く。</div>
+        
+        <div class="btn-group">
+            <button id="change-btn">暖簾をくぐる</button>
+            <a href="index.html" class="back-btn">案内処へ戻る</a>
+        </div>
+    </div>
 
     <script>
-        // 画面の要素（箱とボタン）を取得する
         const box = document.getElementById('box');
         const button = document.getElementById('change-btn');
 
-        // ボタンがクリックされたときの処理
         button.addEventListener('click', () => {
-            // 箱の背景色を黄色に、文字色をクッキリした黒に変更
+            // 背景を温かみのある木漏れ日（薄黄色）に、文字をいらっしゃいませに変更
             box.style.backgroundColor = '#ffeaa7'; 
-            box.style.color = '#2d3436';
-            
-            // 箱のテキストを変更
+            box.style.color = '#2c2520';
+            box.style.borderColor = '#8a7355';
             box.textContent = 'いらっしゃいませ！';
             
-            // ちょっとした遊び心：箱を少し大きくする
-            box.style.transform = 'scale(1.05)';
+            // オリジナリティエフェクト：少し文字を強調
+            box.style.fontWeight = 'bold';
         });
     </script>
 

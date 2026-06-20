@@ -3,12 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>木漏れ日 お手伝いチャット</title>
+    <title>帳場案内 - 喫茶 木漏れ日</title>
     <style>
-        /* 全体のベースデザイン（和モダン・シンプル） */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', sans-serif;
-            background-color: #f7f5f0; /* 生成り色の背景 */
+            background-color: #f7f5f0;
             color: #2c2520;
             display: flex;
             justify-content: center;
@@ -17,30 +22,28 @@
             margin: 0;
         }
 
-        /* チャット全体の枠組み */
         .chat-card {
             width: 400px;
-            height: 550px;
+            height: 580px;
             background: #ffffff;
             border: 1px solid #c2b69d;
-            border-radius: 16px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.04);
             display: flex;
             flex-direction: column;
             overflow: hidden;
         }
 
-        /* ヘッダー部分 */
         .chat-header {
-            background-color: #4a3b32; /* 深いブラウン */
+            background-color: #4a3b32;
             color: #ffffff;
             padding: 16px;
             text-align: center;
-            font-weight: bold;
-            letter-spacing: 1px;
+            font-family: 'Georgia', serif;
+            letter-spacing: 2px;
+            font-size: 15px;
         }
 
-        /* 会話の履歴が見えるエリア */
         #chat-history {
             flex: 1;
             padding: 20px;
@@ -51,16 +54,14 @@
             gap: 14px;
         }
 
-        /* 共通のメッセージの泡（ふきだし） */
         .bubble {
-            max-width: 75%;
+            max-width: 78%;
             padding: 10px 16px;
-            border-radius: 14px;
+            border-radius: 12px;
             font-size: 14px;
             line-height: 1.5;
         }
 
-        /* ユーザー側のメッセージ（右側・明るい茶系） */
         .user-container {
             display: flex;
             justify-content: flex-end;
@@ -71,7 +72,6 @@
             border-bottom-right-radius: 2px;
         }
 
-        /* ボット側のメッセージ（左側・薄いグレー） */
         .bot-container {
             display: flex;
             justify-content: flex-start;
@@ -82,72 +82,83 @@
             border-bottom-left-radius: 2px;
         }
 
-        /* 入力フォームのエリア */
         .chat-input-area {
-            padding: 16px;
+            padding: 14px;
             background: #ffffff;
             border-top: 1px solid #eaddcd;
             display: flex;
             gap: 10px;
         }
 
-        /* 入力欄 */
         #chat-input {
             flex: 1;
             padding: 10px;
             border: 1px solid #c2b69d;
-            border-radius: 8px;
+            border-radius: 6px;
             outline: none;
             font-size: 14px;
         }
 
-        /* 送信ボタン */
         .send-btn {
             background-color: #4a3b32;
             color: white;
             border: none;
             padding: 0 16px;
-            border-radius: 8px;
+            border-radius: 6px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 14px;
+            font-size: 13px;
         }
         .send-btn:hover {
             background-color: #615249;
+        }
+
+        /* 戻るエリア */
+        .back-area {
+            text-align: center;
+            padding: 12px;
+            background: #ffffff;
+            border-top: 1px dashed #eaddcd;
+        }
+        .back-link {
+            font-size: 13px;
+            color: #8c7e6c;
+            text-decoration: none;
+            border-bottom: 1px dashed #c2b69d;
         }
     </style>
 </head>
 <body>
 
     <div class="chat-card">
-        <div class="chat-header">喫茶 木漏れ日 - 案内所</div>
+        <div class="chat-header">帳場案内（自動応答）</div>
         
         <div id="chat-history">
             <div class="bot-container">
-                <div class="bot-bubble bubble">いらっしゃいませ。何かお手伝いできることはありますか？（例：送料、時間 など）</div>
+                <div class="bot-bubble bubble">いらっしゃいませ。木漏れ日の帳場案内です。何か気になることはございますか？（例：送料、時間）</div>
             </div>
         </div>
 
         <div class="chat-input-area">
-            <input type="text" id="chat-input" placeholder="メッセージを入力...">
+            <input type="text" id="chat-input" placeholder="尋ねたい文字を入力...">
             <button class="send-btn" id="submit-btn">送信</button>
+        </div>
+
+        <div class="back-area">
+            <a href="index.html" class="back-link">案内処へ戻る</a>
         </div>
     </div>
 
     <script>
-        // 画面の要素（入力欄、送信ボタン、履歴エリア）をはじめに取得しておく
         const chatInput = document.getElementById('chat-input');
         const submitBtn = document.getElementById('submit-btn');
         const chatHistory = document.getElementById('chat-history');
 
-        // メッセージを送信するメイン処理
         function sendMessage() {
             const text = chatInput.value.trim();
-
-            // もし何も入力されていなければ処理を中断
             if (!text) return;
 
-            // 1. ユーザーのメッセージを画面に表示
+            // 1. ユーザーメッセージを生成して表示
             const userContainer = document.createElement('div');
             userContainer.className = "user-container";
             const userBubble = document.createElement('div');
@@ -156,23 +167,19 @@
             userContainer.appendChild(userBubble);
             chatHistory.appendChild(userContainer);
 
-            // 入力欄をクリアして、画面を一番下までスクロール
             chatInput.value = '';
             chatHistory.scrollTop = chatHistory.scrollHeight;
 
-            // 2. ボットの返答ロジック（0.6秒後に少し遅れて返事をする）
+            // 2. 教材に準拠した条件分岐 (Logic)
             setTimeout(() => {
-                // 基本の返事（どれにも当てはまらない場合）
                 let response = "担当者にお繋ぎします 🙇‍";
-                
-                // 教材の条件分岐 (Logic)
                 if (text.includes("送料")) {
                     response = "全国一律500円です 🚚";
                 } else if (text.includes("時間")) {
                     response = "9:00〜18:00です ⏰";
                 }
 
-                // ボットのメッセージを画面に表示
+                // ボットのメッセージを表示
                 const botContainer = document.createElement('div');
                 botContainer.className = "bot-container";
                 const botBubble = document.createElement('div');
@@ -181,15 +188,12 @@
                 botContainer.appendChild(botBubble);
                 chatHistory.appendChild(botContainer);
 
-                // 返信が来たらもう一度一番下までスクロール
                 chatHistory.scrollTop = chatHistory.scrollHeight;
             }, 600);
         }
 
-        // ボタンがクリックされたときに sendMessage を実行する
+        // クリックとEnterキーの紐付け
         submitBtn.addEventListener('click', sendMessage);
-
-        // 入力欄でEnterキーが押されたときにも sendMessage を実行する
         chatInput.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 sendMessage();
