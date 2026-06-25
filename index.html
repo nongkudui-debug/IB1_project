@@ -1,143 +1,168 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IB1_project - 成果物一覧</title>
-    <style>
-        /* 全体の初期化と和モダンの背景設定 */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IB1_project - 成果物一覧</title>
 
-        body {
-            font-family: 'Georgia', 'Times New Roman', 'Hiragino Mincho ProN', 'MS Mincho', serif;
-            background-color: #f7f5f0; /* 落ち着いた和紙のような生成り色 */
-            color: #2c2520; /* 深みのあるセピアブラック */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-        }
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
 
-        /* 中央のメインコンテナ */
-        .container {
-            max-width: 800px;
-            width: 100%;
-            background-color: #ffffff;
-            border: 1px solid #c2b69d;
-            padding: 60px 40px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-            display: flex;
-            gap: 40px;
-        }
+body{
+    min-height:100vh;
+    font-family:"Yu Mincho","Hiragino Mincho ProN","MS Mincho",serif;
+    color:#2c2520;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.8), transparent 28%),
+        radial-gradient(circle at 80% 10%, rgba(214,190,145,.35), transparent 30%),
+        linear-gradient(135deg,#f8f4ea 0%,#eee3cf 45%,#d8c8aa 100%);
+}
 
-        /* 左側：縦書きの凛としたタイトルエリア */
-        .brand-area {
-            writing-mode: vertical-rl;
-            text-combine-upright: all;
-            font-size: 28px;
-            letter-spacing: 8px;
-            border-left: 1px double #c2b69d;
-            padding-left: 20px;
-            color: #4a3b32;
-        }
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+        linear-gradient(90deg, rgba(255,255,255,.18) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,.15) 1px, transparent 1px);
+    background-size:48px 48px;
+    opacity:.35;
+    pointer-events:none;
+}
 
-        .brand-sub {
-            font-size: 13px;
-            letter-spacing: 2px;
-            color: #8c7e6c;
-            margin-left: 10px;
-        }
+.container{
+    position:relative;
+    max-width:900px;
+    width:100%;
+    background:rgba(255,255,255,.82);
+    border:1px solid #c4b391;
+    padding:70px 50px;
+    box-shadow:0 25px 70px rgba(71,55,35,.18);
+    display:flex;
+    gap:45px;
+    backdrop-filter:blur(8px);
+}
 
-        /* 右側：各日（Day）のメニューリンクエリア */
-        .nav-area {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            gap: 25px;
-        }
+.container::before{
+    content:"";
+    position:absolute;
+    inset:14px;
+    border:1px solid rgba(138,115,85,.35);
+    pointer-events:none;
+}
 
-        .nav-link {
-            display: block;
-            padding: 25px 20px;
-            background-color: #faf9f6;
-            border-left: 4px solid #8a7355; /* 真鍮・木目色のライン */
-            color: #2c2520;
-            text-decoration: none;
-            font-size: 18px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
+.brand-area{
+    writing-mode:vertical-rl;
+    font-size:30px;
+    letter-spacing:10px;
+    border-left:1px double #9d8666;
+    padding-left:24px;
+    color:#4a3b32;
+    z-index:1;
+}
 
-        /* マウスを乗せたときの優雅な動き */
-        .nav-link:hover {
-            background-color: #f4f1ea;
-            transform: translateX(6px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
-        }
+.brand-sub{
+    font-size:13px;
+    letter-spacing:3px;
+    color:#8c7e6c;
+    margin-left:12px;
+}
 
-        .nav-link span {
-            display: block;
-            font-size: 12px;
-            color: #a39684;
-            margin-top: 6px;
-            font-weight: normal;
-            letter-spacing: 1px;
-        }
+.nav-area{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:22px;
+    z-index:1;
+}
 
-        /* フッター */
-        footer {
-            margin-top: 20px;
-            font-size: 11px;
-            color: #a39684;
-            letter-spacing: 1px;
-            text-align: right;
-        }
+.nav-link{
+    display:block;
+    padding:26px 24px;
+    background:linear-gradient(90deg,#fffdf8,#f7f1e6);
+    border-left:5px solid #8a7355;
+    color:#2c2520;
+    text-decoration:none;
+    font-size:18px;
+    font-weight:600;
+    letter-spacing:.08em;
+    transition:.35s;
+    box-shadow:0 6px 18px rgba(0,0,0,.04);
+}
 
-        /* スマホなどのレスポンシブ対応 */
-        @media (max-width: 600px) {
-            .container { 
-                flex-direction: column; 
-                padding: 40px 20px; 
-            }
-            .brand-area { 
-                writing-mode: horizontal-tb; 
-                border-left: none; 
-                border-bottom: 1px double #c2b69d; 
-                padding-bottom: 20px; 
-                padding-left: 0; 
-            }
-        }
-    </style>
+.nav-link:hover{
+    transform:translateX(8px);
+    background:#fff;
+    box-shadow:0 14px 28px rgba(80,60,35,.12);
+}
+
+.nav-link span{
+    display:block;
+    font-size:12px;
+    color:#9a8a74;
+    margin-top:7px;
+    font-weight:normal;
+    letter-spacing:.08em;
+}
+
+footer{
+    margin-top:16px;
+    font-size:11px;
+    color:#9a8a74;
+    letter-spacing:.18em;
+    text-align:right;
+}
+
+@media(max-width:650px){
+    .container{
+        flex-direction:column;
+        padding:45px 25px;
+    }
+
+    .brand-area{
+        writing-mode:horizontal-tb;
+        border-left:none;
+        border-bottom:1px double #9d8666;
+        padding-left:0;
+        padding-bottom:20px;
+        font-size:26px;
+    }
+}
+</style>
 </head>
+
 <body>
 
-    <div class="container">
-        <div class="brand-area">
-            IB1_project
-            <span class="brand-sub">制作実績・成果物総合案内</span>
-        </div>
-        
-        <div class="nav-area">
-            <a href="day1/index.html" class="nav-link">
-                第一篇：初期構築頁
-                <span>day1/index.html への繋がり</span>
-            </a>
-
-            <a href="day2/index.html" class="nav-link">
-                第二篇：喫茶 木漏れ日 案内処
-                <span>day2/index.html への繋がり（和モダン統合サイト）</span>
-            </a>
-            
-            <footer>© KOMOREBI LAB</footer>
-        </div>
+<div class="container">
+    <div class="brand-area">
+        IB1_project
+        <span class="brand-sub">制作実績・成果物総合案内</span>
     </div>
+
+    <div class="nav-area">
+        <a href="day1/index.html" class="nav-link">
+            第一篇
+
+        <a href="day2/index.html" class="nav-link">
+            第二篇
+      
+        </a>
+
+        <a href="day3/index.html" class="nav-link">
+            第三篇
+        </a>
+
+    </div>
+</div>
 
 </body>
 </html>
